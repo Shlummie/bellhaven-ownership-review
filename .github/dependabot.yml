@@ -1,0 +1,42 @@
+version: 2
+
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:00"
+      timezone: America/Phoenix
+    open-pull-requests-limit: 10
+    versioning-strategy: increase
+    groups:
+      web-runtime:
+        patterns:
+          - "@cloudflare/*"
+          - "@openai/sites-vite-plugin"
+          - "@vitejs/*"
+          - "react"
+          - "react-dom"
+          - "react-server-dom-webpack"
+          - "vinext"
+          - "vite"
+          - "wrangler"
+      lint-and-types:
+        dependency-type: development
+        patterns:
+          - "@eslint/*"
+          - "@next/eslint-plugin-next"
+          - "@types/*"
+          - "eslint*"
+          - "globals"
+          - "typescript*"
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+      time: "06:15"
+      timezone: America/Phoenix
+    open-pull-requests-limit: 5

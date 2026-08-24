@@ -1,0 +1,13 @@
+# Install as /etc/logrotate.d/bellhaven-review after replacing the example
+# service user/group if necessary.
+/var/log/bellhaven-ownership-review.log {
+    daily
+    maxsize 10M
+    rotate 14
+    missingok
+    notifempty
+    compress
+    delaycompress
+    dateext
+    create 0640 bellhaven bellhaven
+}

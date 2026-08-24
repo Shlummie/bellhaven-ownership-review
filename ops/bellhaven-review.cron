@@ -1,0 +1,11 @@
+# Example /etc/cron.d/bellhaven-review entry. Install it with mode 0644 and run
+# it as a dedicated, unprivileged `bellhaven` account. Configure the local root
+# mail alias (or an external cron monitor) so the failure message is actionable.
+SHELL=/bin/sh
+PATH=/usr/local/bin:/usr/bin:/bin
+CRON_TZ=America/Phoenix
+MAILTO=root
+
+# Run at 06:17 America/Phoenix time. The wrapper keeps secrets and state under
+# /var/lib, rejects overlaps, applies a 15-minute timeout, and uses umask 077.
+17 6 * * * bellhaven /bin/sh /opt/bellhaven-ownership-review/ops/run-pipeline.sh >> /var/log/bellhaven-ownership-review.log 2>&1 || { code=$?; echo "Bellhaven review pipeline failed with exit $code; inspect /var/log/bellhaven-ownership-review.log"; exit "$code"; }
